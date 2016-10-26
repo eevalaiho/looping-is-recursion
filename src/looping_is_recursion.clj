@@ -66,9 +66,9 @@
           (recur (dec i) x2 (+ x1 x2))))))
 
 (defn cut-at-repetition [a-seq]
-  (loop [retval (conj #{} (first a-seq))
-         inner-seq (rest a-seq)]
+  (loop [retval []
+         inner-seq a-seq]
     (cond
-      (empty? inner-seq) (seq retval)
-      (contains? retval (first inner-seq)) (seq retval)
+      (empty? inner-seq) retval
+      (some (conj #{} (first inner-seq)) retval) retval
       :else (recur (conj retval (first inner-seq)) (rest inner-seq)))))
